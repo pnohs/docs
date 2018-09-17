@@ -1,0 +1,67 @@
+\subsection{图的元数据：Graph Meta  {\color{cyan} [\textbf{new}] } }
+为了方便图的api的使用，我们在graph api的接口上进一步封装，形成graph meta api。
+
+\begin{lstlisting}[language=c]
+#include "params/api_graph_meta.h"
+\end{lstlisting}
+
+\subsubsection*{GraphMeta成员变量}
+
+\begin{enumerate}
+  \item 本地子图对象指针
+\begin{lstlisting}[language=c++]
+    Graph *graph
+\end{lstlisting}
+
+  \item 全局结点数列表
+\begin{lstlisting}[language=c++]
+    _type_nodes_count *g_nodes_counts
+\end{lstlisting}
+这里，全局指的是一个子空间内的所有进程(下同)，该指针指向一个一维数组的首元素。
+GraphMeta对象初始化后，数组长度一般为子空间的进程数。
+数组的各个元素表示各个进程上的结点数，按照进程rank id顺序排列。
+
+  \item 全局结点总数
+\begin{lstlisting}[language=c++]
+    _type_nodes_count g_total_nodes_count
+\end{lstlisting}
+该成员值为数组g\_nodes\_counts种的各个元素值之和，表示全局的结点总数。
+
+  \item 本地结点总数
+\begin{lstlisting}[language=c++]
+    _type_nodes_count local_nodes_count
+\end{lstlisting}
+本地的结点总数，即当前进程上的结点总数。
+
+  \item 全局结点id列表
+\begin{lstlisting}[language=c++]
+    _type_node_id *g_nodes_id_lists
+\end{lstlisting}
+该指针指向一个一维数组的首元素，数组长度为全局各进程结点总数(见成员g\_total\_nodes\_count)。
+该数组存储全局的各个进程上的所有结点的id。
+同一个进程上的所有结点id是位于连续的内存空间上的；不同进程的id列表按照进程rank id顺序排列。
+\begin{lstlisting}[language=python]
+ _____________________________________________________________
+|                 |                 |     |                   |
+|id list of rank 0|id list of rank 1| ... |id list of rank n-1|
+|_________________|_________________|_____|___________________|
+\end{lstlisting}
+
+  \item 本地结点id列表
+\begin{lstlisting}[language=c++]
+    std::vector<_type_node_id> *local_nodes_id_lists 
+\end{lstlisting}
+当前进程上的结点id列表，结点排列顺序的未定义的。
+
+\end{enumerate}
+
+\begin{enumerate}
+\subsubsection*{GraphMeta方法}
+  \item 查询结点所在进程
+\begin{lstlisting}[language=c++]
+    kiwi::RID locateRank(const _type_node_id id)
+\end{lstlisting}
+依据结点id，查询该结点所在的进程id(返回进程在子空间的进程id)；如果结点不存在，则返回\lstinline[language=c++]{ApiGraphMeta::RANK_NOT_FOUND}。
+
+\textbf{注意}：目前的实现中，仅root进程调用该方法有效，其他进程调用则直接返回\lstinline[language=c++]{ApiGraphMeta::RANK_NOT_FOUND}。
+\end{enumerate}

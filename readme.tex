@@ -1,0 +1,75 @@
+\documentclass[UTF8]{ctexart}
+
+\usepackage{eqparbox}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\usepackage{graphicx}
+% \usepackage{svg}
+\usepackage{subfig}
+\usepackage{tabularx}
+
+\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage[capitalise]{cleveref}
+
+\graphicspath{ {./asserts/} }
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\newfontfamily\listingsfont[Scale=0.7]{Courier}
+\newfontfamily\listingsfontinline[Scale=0.8]{Courier New}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\linespread{0.9}\listingsfontinline,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    upquote=true,
+    keepspaces=true,
+    numbers=none, % left
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+% \frontmatter
+\include{title}
+
+\pagenumbering{Roman}
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic} %arabic
+\include{params_algorithm}
+\include{interface}
+
+% \mainmatter % automatic page break
+\pagenumbering{arabic}
+
+%
+% ---- Bibliography ----
+%
+
+\end{document}

@@ -1,0 +1,43 @@
+\subsection{模拟结果的收集 {\color{cyan} [\textbf{new}] }}
+\textbf{ParamsSimResult}类继承子类\textbf{BaseSimResult}, 用于存储参数率定过程中的模拟结果。
+由于现有的参数率定方案中, 一次只率定一个子流域，所以一次模拟结束后，也仅返回一个子流域的所有时间步内的径流量。
+
+对于一次模拟，在\textbf{ParamsSimResult}类的实现中，
+仅会保存当前正在率定的子流域的各个时间步的模拟结果，而过滤掉其他子流域的结果。
+
+需要注意的是，当前率定的子流域只是在子空间内的某一个进程上(设为进程$p_i$)，
+所以，仅进程$p_i$上有径流量值，其他进程上是没有径流量值的。
+换言之，使用ParamsSimResult的对象来接收模拟结果时，仅进程$p_i$上的ParamsSimResult对象中的结果数据不为空，而其他进程上的为空。
+% 其实，在模拟时，调用simThisParams时，仅进程p_i的参数非nullptr，其他进程可以传递nullptr。
+
+\begin{lstlisting}[language=c]
+#include "params/params_sim_result.h"
+\end{lstlisting}
+
+\begin{enumerate}
+  \item ParamsSimResult构造方法
+\begin{lstlisting}[language=c++]
+  ParamsSimResult(const _type_node_id id);
+\end{lstlisting}
+  在参数率定场景下，该构造方法中的id一般为当前正在率定的子流域的id。
+
+  \item 模拟结果拷贝
+\begin{lstlisting}[language=c++]
+   bool flatNode(T *result_vec, const _type_node_id id, const unsigned long len)
+\end{lstlisting}
+   将模拟结果拷贝到一维数组，其中result\_vec为数组首地址，id为结点id，len为数组长度。
+   如果模拟结果中存在id为@param id的结点的模拟结果，则将数据拷贝到数组result\_vec中，并返回true；否则返还false。
+
+   在参数率定中,参数id可以为当前正在率定的结点的id。由于并不是所有的进程上都有当前率定的结点(仅子空间内的一个进程有$p_i$)。
+   而其他非$p_i$进程调用该函数，则不会进行内存的拷贝，并返回false。
+\end{enumerate}
+
+\subsubsection*{结果收集之后}
+为了最终能够使得主进程得到当前率定的子流域的模拟结果，还需要进行通信将模拟结果发送给主进程。
+可以有两种通信方式：
+\begin{enumerate}
+ \item 正在率定的子流域所在进程和子空间的主进程进行通信，
+使得子空间的主进程获得正在率定的子流域的模拟结果；
+随后，子空间主进程和主进程进行通信，使得主进程获得当前正在率定的子流域的模拟结果。
+ \item 当前正在率定的子流域所在进程直接和主进程进行通信，使得主进程获得当前正在率定的子流域的模拟结果。
+\end{enumerate}

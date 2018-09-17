@@ -1,0 +1,28 @@
+\subsection{参数率定API}
+参数率定调用水循环模拟的相关API位于\textbf{src/params}目录。
+该API的大部分内容均在\textbf{ApiParams}类中。
+\begin{lstlisting}[language=c]
+#include "params/api_params.h"
+\end{lstlisting}
+
+\begin{enumerate}
+  \item ApiParams构造方法(MPI communication)
+\begin{lstlisting}[language=c++]
+  ApiParams(Simulation *pSim, kiwi::RID root);
+\end{lstlisting}
+  在该构造方法中，会初始化全局图信息，包括通信每个进程上的结点数和各个进程上的所有节点id。
+  同时，会初始化Simulation对象的引用以及设置该子空间的root进程(一般可以设为rankid为0的进程)，以便后续调用水循环模拟。
+
+  \item 水循环模拟(MPI communication) {\color{cyan} [\textbf{update}] }
+\begin{lstlisting}[language=c++]
+  void simThisParams(_type_param params[], const size_t length, const size_t size, _type_node_id id, ParamsSimResult *paramsSimResult)
+\end{lstlisting}
+   传递全局的模型参数(即所有进程上的所有子流域上的(产汇流)模型参数),进行一次水循环模拟。
+   其中从进程中的root进程(SM进程)的params数组不能为空，其他进程的params数组可以为空，
+   该函数会根据各个进程上的节点数及其id，使用MPI\_Scatterv的方式将参数分配到各个进程。
+   length参数是params数组长度，size参数是一个结点上的水文参数个数；
+   Q是当前正在进行率定的子流域id，paramsSimResult在模拟过程的每一个时间步进行回调，存储率定的子流域中各个时间步的径流量。
+
+    其中，关于ParamsSimResult相关的文档请参阅\textbf{模拟结果}章节。\\
+   \textbf{Note}: 该api需要且仅限子空间内所有的从进程同时调用。
+\end{enumerate}

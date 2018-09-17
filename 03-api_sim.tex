@@ -1,0 +1,69 @@
+\subsection{水循环模拟API}
+结合现有的需求及背景特点，将pnohs框架中的相关接口进一步封装，形成完整的水循环模拟流程。
+其中，相关接口将在下文进行描述。
+
+\subsubsection{多次水循环模拟}
+由于在参数率定中，需要重复调用水循环模拟过程，每次传递给模型不同的参数，一次模拟结束后，根据(子)流域出口的流量，进行收敛性判断等操作。
+
+下面的示例中，展示了如何进行多次水循环模拟：
+
+\begin{lstlisting}[caption={多次水循环模拟例程},label={code:multi_sim_example},language=c++,numbers=left,escapechar=$]
+#include <logs/logs.h>
+#include <utils/sim_domain.h>
+#include <scheduler/ring_pickup.h>
+#include "simulation.h"
+#include "models/muskingum/muskingum_routing_model.h"
+#include "models/xaj/xaj3_runoff_model.h"
+
+int main(int argc, char *argv[]) {
+    // configure        $\label{line:config_start}$
+    ConfigValues cv;
+    cv.simulationTimeSteps = 6;
+    cv.pickupStrategy = RingPickup::Key;
+    cv.dispatchFilePath = "example/xaj-dispatch.dis";   $\label{line:config_end}$
+    // set communication domain.
+    domain::mpi_sim_process = kiwi::mpiUtils::global_process;
+
+    Simulation mSimulation(&cv);  $\label{line:new_sim}$
+    NodesPool *pool = mSimulation.setupNodes();
+    mSimulation.loadModel(pool);
+    mSimulation.initScheduler(pool); $\label{line:init_sch}$
+    for (int i = 0; i < 10; i++) {
+        double *params = getYourParamsData(); // load your parameters here.
+        // set model params.
+        unsigned long total_params_length = pool->nodes() * (14 + 1); // lenght of array params
+        if (!mSimulation.passParams(params, total_params_length)) {
+            mSimulation.teardown();
+            delete params;
+            FAIL() << "error passing parameter count, which is " << total_params_length;
+        }
+        // ! end of setting models parameters.
+        mSimulation.startMessageLooper();
+        mSimulation.simulate(nullptr);
+        mSimulation.reset();  $\label{line:sim_reset}$
+        delete params;
+    }
+    mSimulation.teardown();
+    return 0;
+}
+\end{lstlisting}
+
+在例程Listing \ref{code:multi_sim_example}中，
+第\ref{line:config_start}-\ref{line:config_end}行是配置项，其中包括模拟时间步，调度算法，结点(子流域)划分到各个进程的划分文件等;
+第\ref{line:new_sim}-\ref{line:init_sch}行为创建水循环模拟对象，各进程加载结点与模型以及初始化调度器；
+后面的for循环中，执行了10次水循环模拟过程（相当于参数率定过程中的10组参数优选），
+每一次水循环模拟结束后，需要进行重置操作(line \ref{line:sim_reset}),以便进行下一次模拟。
+
+另外，Simulation::simulate方法可以传递模拟结果对象的指针作为参数，用于在每完成一个结点的一个时间步的模拟时，
+进行回调。例如：
+\begin{lstlisting}[caption={模拟过程回调例程},label={code:sim_callback_example},language=c++,numbers=left]
+    BaseSimResult returnData;
+    mSimulation.simulate(&returnData);
+\end{lstlisting}
+在进行某个结点的某个时间步模拟的，如果回调函数被调用，则可以将对应结点该时间步的流量暂存起来。
+
+\textbf{Note}: 由于在现有的代码中，进行参数率定时，配置项解析，Simulation对象创建、加载结点、加载模型、初始调度等过程已经完成了。
+所以，在参数率定过程中，只需关心例程Listing \ref{code:multi_sim_example} for循环中的代码即可，
+即只需在适当时候进行for循环中几个过程的调用。
+
+为了适用参数率定，我们将水循环的多次模拟进一步封装，相关细节将在下一节中详述。

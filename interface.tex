@@ -1,0 +1,16 @@
+\section{API}
+本小节将围绕并行水循环程序\textbf{pnohs-alpha}
+\footnote{
+    \textbf{Repository}: \url{https://git.hpcer.io/HPCer/hydrology/pnohs-alpha} \& \url{https://git.gensh.me/HPCer/hydrology/pnohs-alpha}
+}与并行水文模拟框架\\\textbf{pnohs}
+\footnote{
+   \textbf{Repository}: \url{https://git.hpcer.io/HPCer/hydrology/pnohs} \& \url{https://git.gensh.me/HPCer/hydrology/pnohs}
+}, 介绍参数率定算法中可能会用到的api。
+
+为方便表述，我们称除进行参数率定控制的进程称为\textbf{控制进程}或主进程，执行水循环模拟的进程为\textbf{模拟进程}或子空间从进程。
+
+\input{01-api_graph}
+\input{02-api_graph_meta}
+\input{03-api_sim}
+\input{04-api_for_params}
+\input{05-simulation_result}

@@ -1,0 +1,104 @@
+\section{参数率定算法}
+\subsection{基本概念及思想}
+\subsubsection{子空间}
+当前的参数率定算法采用主从模式，其中包含一个主进程和多个从进程。
+其中，我们将从进程分为$n$组，每个组称为一个\textbf{子空间}。
+在每个子空间上可以独立运行流域上的水循环模拟，这个子空间上执行的水循环模拟也是并行的，
+设各个子空间内都使用相等的进程数$m$来执行水循环模拟。
+
+我们可以很容易知道，在参数率定时，使用的总进程数为：$n\times m + 1$，其中从进程数为$n\times m$。
+主进程主要负责调用相关算法进行参数生成、参数率定的收敛性判断及主要的流程控制。
+
+目前的方案中，在$n$ 个子空间中同时执行独立的流域水循环模拟，利用子空间的并行方式可以加速参数寻优。
+各个子空间上的区别只是传入模型的参数不同。
+
+\subsubsection{自上向下率定}
+由于流域的上下游依赖关系，上游的径流量汇入下游后，会影响下游的结果。
+所以，一般地，在进行参数率定时，采用自上游子流域到下游子流域率定的方式，即：
+先率定从最上游的子流域开始，率定上游子流域参数，率定好了之后，固定上游子流域的参数，然后再逐层率定下一层的子流域参数。
+
+基于这种率定方式，我们每次只率定一个子流域（各个子空间同时率定该子流域），
+只要任意一个子空间上的参数率定达到收敛，其他子空间上的关于该子流域的率定过程即可终止。
+然后固定该子流域上的参数，所有子空间选择另一个下游的子流域进行率定，知道流域出口。
+
+基于这种思想，基于主从模式的并行参数率定的大致算法将在\ref{algorithm}中进行阐述。
+
+\subsection{主从模式的参数率定算法} \label{algorithm}
+
+\begin{algorithm}[H]
+\caption{参数率定算法(主进程)}\label{algorithm_params}
+\begin{flushleft}
+    \textbf{INPUT:} $n$ - the count of sub-space\\
+    \textbf{INPUT:} $SM$ - set of MASTER processors in all sub-space.
+\end{flushleft}
+\begin{algorithmic}[1]
+
+\State \textbf{var} $id \gets \text{null} $
+\State \textbf{var} $id\_next \gets \text{null} $
+\State \Call{Rec}{$data=id\_next,from=SM$}
+
+\While{$id\_next \neq \text{null} $}  \Comment{1-1}
+    \State $id\gets id\_next $
+    \While{true}
+        \State \textbf{var} $Q_1,Q_2,\dots,Q_n \gets 0 $
+        \State \textbf{var} $i \gets 0$
+        \ForAll{$sub\_spaces$}
+            \State $i \gets i+1 $
+            \State \textbf{var} $params \gets $ \Call{GenParams}{$i,id$}   \Comment{1-2}
+            \State \Call{ISend}{$data=id,to=SM_i$}      \Comment{1-3}
+            \State \Call{ISend}{$data=params,to=SM_i$}  \Comment{1-4}
+            \State \Call{IRec}{$data=Q_i,from=SM_i$}
+            \State \Call{IRec}{$data=id\_next,from=SM_i$}
+        \EndFor
+        \State \Call{WaitAll}{}  \Comment{1-5}
+        \If{\Call{Convergence}{$Q_1,Q_2,\dots,Q_n$}}
+            \State \textbf{break}
+        \EndIf
+    \EndWhile
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+%% second algorithm
+\begin{algorithm}[H]
+\caption{参数率定算法(从进程)}\label{algorithm_params}
+\begin{flushleft}
+    \textbf{INPUT:} $m$ - the count of processors in this sub-space.\\
+    \textbf{INPUT:} $MASTER$ - global MASTER processor.\\
+    \textbf{INPUT:} $SM$ - MASTER processor in this sub-space.
+\end{flushleft}
+\begin{algorithmic}[1]
+
+\State \textbf{var} $id\_pre \gets \text{null} $
+\State \textbf{var} $id \gets \text{null}$
+\State \textbf{var} $id\_next \gets$ \Call{nextNode}{}
+\If{IsSlaveMaster}
+    \State \Call{Send}{$data=id\_next,from=MASTER$} \Comment{initialize next\_id on master. 2-1}
+\EndIf
+
+\While{$id\_next \neq $ \text{null}}
+    \If{IsSlaveMaster}
+        \State \Call{Rec}{$data=id,from=MASTER$} \Comment{2-2}
+        \State \Call{Rec}{$data=params,from=MASTER$} \Comment{2-3}
+    \EndIf
+    \State \Call{BCast}{$data=id,root=SM,target=sub\_space$}
+    \State \Call{Scatter}{$data=params,root=SM,target=sub\_space$}
+
+    \State \textbf{var} $Q=$ \Call{simulate}{$id,params$}  \Comment{2-4}
+    \If{IsSlaveMaster}
+        \State \Call{Send}{$data=Q,to=MASTER$}
+    \EndIf
+
+    \If{$id\_pre \neq id$}
+        \State $id\_next$ = \Call{nextNode}{}  \Comment{2-5}
+    \EndIf
+    \If{IsSlaveMaster}
+        \State \Call{Send}{$data=id\_next,to=MASTER$}
+    \EndIf
+    \State $id\_pre \gets id $
+\EndWhile
+% \BState \emph{loop}:
+\end{algorithmic}
+\end{algorithm}
+
+注：该部分的伪代码仅做作为说明，实现的时候，可能有所不同(例如算法中的点对点通信，在实现时会是全局通信，如广播)。
