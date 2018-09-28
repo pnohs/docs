@@ -1,2 +1,2 @@
-readme.pdf:
+document.pdf:
 	xelatex readme.tex
