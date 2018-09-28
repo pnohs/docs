@@ -47,6 +47,8 @@ GraphMeta对象初始化后，数组长度一般为子空间的进程数。
 |_________________|_________________|_____|___________________|
 \end{lstlisting}
 
+\textbf{注意}：目前的实现中，仅root进程可以访问该数组，其他进程上该指针值为\lstinline[language=c++]{nullptr}。
+
   \item 本地结点id列表
 \begin{lstlisting}[language=c++]
     std::vector<_type_node_id> *local_nodes_id_lists 
