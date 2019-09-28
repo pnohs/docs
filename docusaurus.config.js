@@ -1,28 +1,32 @@
 /**
- * Copyright (c) 2017-present, Facebook, Inc.
+ * Copyright (c) HPCDE lab, USTB.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
+const siteBaseUrl = process.env.NODE_ENV === 'production'? '/hydrology/pnohs-document/' : '/'
+
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  title: 'pnohs',
+  tagline: 'A massively parallel hydrology simulation framework.',
+  url: 'https://git.hpcer.dev/HPCer/hydrology/pnohs',
+  baseUrl: siteBaseUrl,
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'HPCDE lab of USTB', // Usually your GitHub org/user name.
+  projectName: 'pnohs', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'pnohs',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'pnohs Logo',
         src: 'img/logo.svg',
       },
       links: [
-        {to: 'docs/doc1', label: 'Docs', position: 'left'},
-        {to: 'blog', label: 'Blog', position: 'left'},
+        {to: 'docs/pnohs/get-started', label: 'pnohs', position: 'left'},
+        {to: 'docs/pnohs-alpha/overview', label: 'pnohs-alpha', position: 'left'},
+        {to: 'docs/pnohs-alpha-ref/' , label: 'pnohs-alpha Reference',  position: 'left'},
+        // {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
@@ -37,7 +41,15 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Docs',
+              label: 'pnohs Guide',
+              to: 'docs/pnohs/get-started',
+            },
+            {
+              label: 'pnohs-alpha',
+              to: 'docs/pnohs-alpha/overview',
+            },
+            {
+              label: 'pnohs-alpha Reference',
               to: 'docs/doc1',
             },
           ],
@@ -52,20 +64,28 @@ module.exports = {
           ],
         },
         {
-          title: 'Social',
+          title: 'Repositories',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              label: 'pnohs',
+              to: 'https://git.hpcer.dev/HPCer/hydrology/pnohs',
+            },
+            {
+              label: 'pnohs-alpha',
+              to: 'https://git.hpcer.dev/HPCer/hydrology/pnohs-alpha',
+            },
+            {
+              label: 'pnohs-disp',
+              to: 'https://git.hpcer.dev/HPCer/hydrology/pnohs-disp',
             },
           ],
         },
       ],
       logo: {
-        alt: 'Facebook Open Source Logo',
+        alt: 'HPCDE lab Source Logo',
         src: 'https://docusaurus.io/img/oss_logo.png',
       },
-      copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} HPCDE lab of USTB. Built with Docusaurus.`,
     },
   },
   presets: [
