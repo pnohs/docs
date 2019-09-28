@@ -1,6 +1,6 @@
 ---
 id: run-overview
-title: 简介
+title: 概述
 ---
 
 pnohs-alpha可用的命令如下：

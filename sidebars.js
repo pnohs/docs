@@ -12,8 +12,8 @@ module.exports = {
     // ],
     'Getting Started': [
       'pnohs/get-started', 
-      'doc2',
-      'doc3'
+      // 'doc2',
+      // 'doc3'
     ],
   },
   'pnohs-alpha': {
@@ -29,7 +29,8 @@ module.exports = {
       'pnohs-alpha/building',
     ],
     '运行程序':[
-      'pnohs-alpha/run-overview'
+      'pnohs-alpha/run-overview',
+      'pnohs-alpha/run-simulation',
     ],
   },
 };
