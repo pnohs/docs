@@ -10,11 +10,22 @@ module.exports = {
     // 'Overview': [
       // 'overview'
     // ],
-    'Getting Started': [
-      'pnohs/get-started', 
-      // 'doc2',
-      // 'doc3'
+    '概览': [
+      'pnohs/overview',
+      'pnohs/publications',
     ],
+    '编译构建': [
+      'pnohs/prepare-env',
+      'pnohs/get-source-code',
+      'pnohs/build-and-install',
+      'pnohs/lib-usage'
+    ],
+    'API Reference': [
+      'pnohs/models-parameters',
+      'pnohs/models-integration',
+      'pnohs/core-api',
+      'pnohs/graph-api'
+    ]
   },
   'pnohs-alpha': {
     '概览': [

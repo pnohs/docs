@@ -33,5 +33,5 @@ title: 准备环境
 mkdir -p ~/.local/bin
 wget https://github.com/genshen/pkg/releases/download/v0.3.0/pkg-linux-amd64 -O ~/.local/bin/pkg
 chmod +x ~/.local/bin/pkg
-export PATH=~/.loca/bin:$PATH
+export PATH=~/.local/bin:$PATH
 ```

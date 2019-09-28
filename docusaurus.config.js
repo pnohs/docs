@@ -23,7 +23,7 @@ module.exports = {
         src: 'img/logo.svg',
       },
       links: [
-        {to: 'docs/pnohs/get-started', label: 'pnohs', position: 'left'},
+        {to: 'docs/pnohs/overview', label: 'pnohs', position: 'left'},
         {to: 'docs/pnohs-alpha/overview', label: 'pnohs-alpha', position: 'left'},
         {to: 'docs/pnohs-alpha-ref/' , label: 'pnohs-alpha Reference',  position: 'left'},
         // {to: 'blog', label: 'Blog', position: 'left'},
