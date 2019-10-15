@@ -41,15 +41,15 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'pnohs Guide',
-              to: 'docs/pnohs/get-started',
+              label: 'pnohs guide',
+              to: 'docs/pnohs/overview',
             },
             {
               label: 'pnohs-alpha',
               to: 'docs/pnohs-alpha/overview',
             },
             {
-              label: 'pnohs-alpha Reference',
+              label: 'pnohs-alpha reference',
               to: 'docs/doc1',
             },
           ],
