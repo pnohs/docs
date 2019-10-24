@@ -13,6 +13,11 @@ import Clipboard from 'clipboard';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 
+// added for using toml highlight
+import Prism from 'prism-react-renderer/prism';
+(typeof global !== 'undefined' ? global : window).Prism = Prism;
+require('prismjs/components/prism-toml');
+// end of modify
 
 export default ({children, className: languageClassName}) => {
   const {
