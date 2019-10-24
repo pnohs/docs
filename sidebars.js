@@ -43,5 +43,10 @@ module.exports = {
       'pnohs-alpha/run-overview',
       'pnohs-alpha/run-simulation',
     ],
+    'Reference':[
+      'pnohs-alpha/ref-config-file',
+      'pnohs-alpha/ref-dispatch-file',
+      'pnohs-alpha/ref-model-input-file',
+    ]
   },
 };
