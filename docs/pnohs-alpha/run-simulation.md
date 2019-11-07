@@ -21,46 +21,7 @@ export const Highlight = ({children, color}) => (
 
 ### `config.toml` 配置文件
 配置文件用于程序的运行控制，如模拟起始时间，使用的水文模型，调度算法等。  
-以下是其中一个配置文件的示例，关于配置文件的具体可参考 [配置文件](ref-config-file.md) 小节： 
-```toml
-title = "Configure file for pnohs"
-version = "0.1.0"
-
-[dispatch]
-dispatch_file = "dispatch.dis"
-
-[simulation]
-run_mode = 0
-# time_steps = 6
-max_iter = 20
-input_data_path = "model_input"
-
-start_time = "2006-01-01 00:00"
-end_time = "2006-01-06 00:00"
-time_stride = 24
-
-[scheduler]
-pickup_strategy = "ring"
-
-[models]
-global_runoff_model = "xaj"
-global_routing_model = "mskg"
-[models.xinanjiang]
-    name = "xaj"
-[models.sac]
-    name = "sac"
-[models.muskingum]
-    name = "mskg"
-[models.diffusive_wave]
-    name = "dswv"
-
-[output]
-eval_mode = true
-output_tmp = true
-result_subbasins = []
-path = "outputs"
-ext = "dump"
-```
+[这里](ref-config-file.md) 给出来一个配置文件的示例，关于配置文件具体可参考 [配置文件](ref-config-file.md) 小节： 
 
 ### 任务划分文件
 任务划分文件用于指定每个 MPI 进程上的有哪些子流域。  
