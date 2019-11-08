@@ -20,6 +20,9 @@ module.exports = {
       'pnohs/build-and-install',
       'pnohs/lib-usage'
     ],
+    'Developer Guide': [
+      'pnohs/guide-build-models'
+    ],
     'API Reference': [
       'pnohs/graph-api',
       'pnohs/api-distributed-graph',
