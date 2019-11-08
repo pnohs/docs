@@ -21,6 +21,9 @@ title: 图
 （或参考由代码注释自动生成的文档），这里仅做简单介绍。
 
 ## class `StreamMeta`
+```cpp
+#include <graph/stream_meta.h>
+```
 类 StreamMeta 用以描述一个节点的元信息，包含节点的 id 与该节点所在进程的 rank id。
 ```cpp
 class StreamMeta {
@@ -44,6 +47,9 @@ public:
 - 说明：构造函数。
 
 ## class `Node`
+```cpp
+#include <graph/node.h>
+```
 `Node`类提供类与水文无关的图节点信息，包含节点id，从某些节点出发指向该节点的节点（称为上游节点）元数据列表，
 和从该节点出发指向其他节点（称为下游节点）的元数据列表，以及相关的标志信息（如是入度是否为 0 或出度是否为 0）。
 
@@ -73,23 +79,41 @@ public:
     即调用函数`isRiverOutlet`或`isRiverOrigin`可能不会返回正确的结果，需要显示地调用该函数以更新节点度信息。
 
 ## class `Upstream`
+```cpp
+#include <graph/upstream.h>
+```
 上游节点元数据列表，用来表示节点的所有上游节点。  
 实际上，该类中主要包含一个`UpstreamNode`对象数组，数组中的每一个元素存储了一个上游节点的元数据信息和从该上游节点发送到该节点（该节点是这个上游节点的直接下游节点）的数据(详细见: class `UpstreamNode`)。
 
 ## class `Downstream`
+```cpp
+#include <graph/downstream.h>
+```
 下游节点元数据列表，用来表示节点的所有下游节点。  
 该类中主要包含一个`DownstreamNode`对象数组。
 
 ## class `UpstreamNode`
+```cpp
+#include <graph/upstream_node.h>
+```
 该类继承自类`StreamMeta`，用来表示一个上游节点的元数据信息和从该上游节点发送到其直接下游节点的数据。
 
 ## class `DownstreamNode`
+```cpp
+#include <graph/downstream_node.h>
+```
 该类继承自类`StreamMeta`，用来表示一个下游节点的元数据信息。
 
 ## class `SimulationNode`
+```cpp
+#include <simulation_node.h>
+```
 SimulationNode 类继承自类 Node，除了类 Node的信息外，还提供了节点上与水文相关的信息，
 如产汇流模型、model context、当前模拟时间步等。
 
 ## class `NodesPool`
+```cpp
+#include <nodes_pool.h>
+```
 NodesPool 类主要包含一个`SimulationNode`对象的列表，用来表示位于当前进程的所有节点(子流域)，
 以及各个节点对应的上游节点、下游节点的元数据。

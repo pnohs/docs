@@ -51,7 +51,7 @@ kinetic
 ```
 
 ## `pnohs-alpha show`
-`list` 子命令可以列出指定的水文模拟具体信息（当前版本仅显示模型参数信息），如:
+`show` 子命令可以列出指定的水文模拟具体信息（当前版本仅显示模型参数信息），如:
 ```bash
 ./build/bin/pnohs-alpha show xaj
 parameters of model xaj:
@@ -73,7 +73,7 @@ KKSS	Float	1	        0
 ```
 
 ## `pnohs-alpha run`
-`list` 子命令用于执行水循环模拟（或集合预报或参数率定），需要指定 [toml](https://github.com/toml-lang/toml) 格式的配置文件路径，例如：
+`run` 子命令用于执行水循环模拟（或集合预报或参数率定），需要指定 [toml](https://github.com/toml-lang/toml) 格式的配置文件路径，例如：
 ```bash
 ./build/bin/pnohs-alpha run ./config.toml
 ```

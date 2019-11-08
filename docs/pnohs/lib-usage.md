@@ -56,11 +56,12 @@ cmake --build ./build
 使用 pkg 包管理器则不需知道各个包的安装位置，先编写依赖包的文件 `pkg.yaml`：
 ```yml
 packages:
+  git:
     pnohs:
       path: https://git.hpcer.dev/HPCer/hydrology/pnohs.git
       tag: v0.3.0
 ```
-则 pkg.yaml 同一目录下执行 `pkg fetch & pkg install` 命令以拉去依赖包的源码并进行构建。
+则 pkg.yaml 同一目录下执行 `pkg fetch & pkg install` 命令以拉取依赖包的源码并进行构建。
 在 CMakeLists.txt 文件中添加并链接依赖包：
 ```cmake {5,7}
 project(pnohs-alpha)
