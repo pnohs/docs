@@ -1,5 +1,5 @@
 ---
-id: core-api
+id: simulation-api
 title: 水循环模拟 API
 ---
 

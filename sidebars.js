@@ -27,8 +27,8 @@ module.exports = {
       'pnohs/graph-api',
       'pnohs/api-distributed-graph',
       'pnohs/models-parameters',
-      'pnohs/models-integration',
-      'pnohs/core-api'
+      'pnohs/models-integration-api',
+      'pnohs/simulation-api'
     ]
   },
   'pnohs-alpha': {
