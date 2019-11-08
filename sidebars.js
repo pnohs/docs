@@ -21,10 +21,11 @@ module.exports = {
       'pnohs/lib-usage'
     ],
     'API Reference': [
+      'pnohs/graph-api',
+      'pnohs/api-distributed-graph',
       'pnohs/models-parameters',
       'pnohs/models-integration',
-      'pnohs/core-api',
-      'pnohs/graph-api'
+      'pnohs/core-api'
     ]
   },
   'pnohs-alpha': {
