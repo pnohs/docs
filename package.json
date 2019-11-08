@@ -6,12 +6,13 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "NODE_ENV=production docusaurus build",
+    "local": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "NODE_ENV=production docusaurus deploy"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.32",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.32",
+    "@docusaurus/core": "^2.0.0-alpha.33",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.33",
     "classnames": "^2.2.6",
     "prismjs": "^1.17.1",
     "react": "^16.8.4",
