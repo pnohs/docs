@@ -18,6 +18,7 @@ import styles from './styles.module.css';
 import Prism from 'prism-react-renderer/prism';
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
 require('prismjs/components/prism-toml');
+require('prismjs/components/prism-cmake');
 // end of modify
 
 const highlightLinesRangeRegex = /{([\d,-]+)}/;

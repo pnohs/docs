@@ -61,8 +61,8 @@ packages:
       tag: v0.3.0
 ```
 则 pkg.yaml 同一目录下执行 `pkg fetch & pkg install` 命令以拉去依赖包的源码并进行构建。
-在 CMakeLists.txt 文件中添加依赖包：
-```cmake
+在 CMakeLists.txt 文件中添加并链接依赖包：
+```cmake {5,7}
 project(pnohs-alpha)
 
 set(CMAKE_CXX_STANDARD 11)

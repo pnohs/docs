@@ -36,7 +36,7 @@ vendor/pkg/pnohs/bin/disc j2b -j ./dispatch.json -o dispatch.dis
 ```
 生成二进制任务划分文件后，需要修改 toml 配置文件，通过其中的`dispatch.dispatch_file`项指定该二进制任务划分文件的路径（相对于执行程序的目录）。  
 例如:
-```toml
+```toml {3}
 ...
 [dispatch]
 dispatch_file = "dispatch.dis"
@@ -50,7 +50,7 @@ dispatch_file = "dispatch.dis"
 驱动模型运行的输入文件包含各个子流域的配置，模型参数，模型初始值，观测值，降雨、蒸发数据等。
 这些文件放置在一个目录里面(例如`module-input`目录)，并在 toml 配置文件中，通过`simulation.input_data_path`项指定。  
 例如:
-```toml
+```toml {3}
 ...
 [simulation]
 input_data_path = "model_input"
