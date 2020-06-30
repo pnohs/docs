@@ -18,7 +18,8 @@ title: 图
 > and another record of node **b** from node **a** as well as node **a**'s host **p_a** is stored on computing unit **p_b**.
 
 这里涉及几个重要的类，`StreamMeta`、`Node`、`SimulationNode`、`NodesPool`，相关实现及功能细节请参照对应的头文件及其实现
-（或参考由代码注释自动生成的文档），这里仅做简单介绍。
+（或参考由代码注释自动生成的文档），这里仅做简单介绍。需要说明的是，当前介绍的是单个 MPI 进程内部的子图的组织形式与相关接口
+（如当前 MPI 进程中子图的节点列表，列表中每一个节点的属性、上下游节点id及上下游节点所在的进程 id）。
 
 ## class `StreamMeta`
 ```cpp
