@@ -17,7 +17,7 @@ git clone https://github.com/pnohs/pnohs.git
 
 ## 安装依赖
 完成代码获取后，需要进入源码的根目录安装依赖库。  
-pnohs 的代码依赖于很多开源的代码库的支持，如[kiwi](https://git.hpcer.dev/genshen/kiwi), [nlohmann_json](github.com/nlohmann/json), googletest, fmt等。  
+pnohs 的代码依赖于很多开源的代码库的支持，如[kiwi](https://git.hpcer.dev/genshen/kiwi), [nlohmann_json](https://github.com/nlohmann/json), googletest, fmt等。  
 可以使用[pkg](https://github.com/genshen/pkg/)依赖管理工具下载依赖包或者直接将对应依赖包导入到 pnohs 源码的 `vendor`目录。
 
 你可以选择以下两种依赖安装方式的其一即可：

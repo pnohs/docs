@@ -25,10 +25,10 @@ module.exports = {
       items: [
         {to: 'docs/pnohs/overview', label: 'pnohs', position: 'left'},
         {to: 'docs/pnohs-alpha/overview', label: 'pnohs-alpha', position: 'left'},
-        {to: 'docs/pnohs-alpha-ref/' , label: 'pnohs-alpha Reference',  position: 'left'},
+        // {to: 'docs/pnohs-alpha-ref/' , label: 'pnohs-alpha Reference',  position: 'left'},
         // {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/pnohs/pnohs',
           label: 'GitHub',
           position: 'right',
         },
@@ -48,10 +48,10 @@ module.exports = {
               label: 'pnohs-alpha',
               to: 'docs/pnohs-alpha/overview',
             },
-            {
-              label: 'pnohs-alpha reference',
-              to: 'docs/doc1',
-            },
+            // {
+            //   label: 'pnohs-alpha reference',
+            //   to: 'docs/doc1',
+            // },
           ],
         },
         {
@@ -69,6 +69,10 @@ module.exports = {
             {
               label: 'pnohs',
               to: 'https://git.hpcer.dev/HPCer/hydrology/pnohs',
+            },
+            {
+              label: 'pnohs github mirror',
+              to: 'https://github.com/pnohs/pnohs',
             },
             {
               label: 'pnohs-alpha',
