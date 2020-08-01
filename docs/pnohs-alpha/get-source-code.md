@@ -27,7 +27,7 @@ git checkout Branch_Or_Tag
 ```
 
 ### 直接下载源码包
-你也可以直接前往我们的代码仓库页面(https://git.hpcer.dev/HPCer/hydrology/pnohs-alpha)下载源码包。  
+你也可以直接前往我们的代码仓库页面 (https://git.hpcer.dev/HPCer/hydrology/pnohs-alpha) 下载源码包。  
 下载时注意选择分支或版本。  
 下载完后将压缩包解压到自己本地目录。
 
@@ -54,4 +54,6 @@ pkg install # 编译安装依赖库
 ```bash
 cd pnohs-alpha
 pkg import --input vendor-20190925-003851.426644.tar
+pkg fetch
+pkg install
 ```

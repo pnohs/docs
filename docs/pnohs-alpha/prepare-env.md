@@ -4,10 +4,10 @@ title: 准备环境
 ---
 
 在 Linux 上构建 pnohs-alpha 之前，请在你的系统中安装以下构建工具：
-- [CMake](http://cmake.org/), 3.6及以上版本；
+- [CMake](http://cmake.org/), 3.13 (支持 -S 选项) 及以上版本；
 - 支持C++11特性的C++编译器；
 - MPI环境;
-- [pkg](https://github.com/genshen/pkg) c/c++依赖管理工具，v0.3.0及以上版本；
+- [pkg](https://github.com/genshen/pkg) c/c++依赖管理工具，v0.4.0及以上版本；
 
 ## CMake
 如果你的系统中未安装CMake构建工具，请按照[相关文档](https://cmake.org/)进行下载安装。
@@ -31,7 +31,7 @@ title: 准备环境
 例如, 对于64位amd64架构的Linux操作系统：
 ```bash
 mkdir -p ~/.local/bin
-wget https://github.com/genshen/pkg/releases/download/v0.3.0/pkg-linux-amd64 -O ~/.local/bin/pkg
+wget https://github.com/genshen/pkg/releases/download/v0.4.1/pkg-linux-amd64 -O ~/.local/bin/pkg
 chmod +x ~/.local/bin/pkg
 export PATH=~/.local/bin:$PATH
 ```
