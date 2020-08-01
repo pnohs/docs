@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const siteBaseUrl = process.env.NODE_ENV === 'production'? '/hydrology/pnohs-document/' : '/'
+const siteBaseUrl = process.env.DOC_SERVER_PATH? process.env.DOC_SERVER_PATH : '/'
 
 module.exports = {
   title: 'pnohs',
