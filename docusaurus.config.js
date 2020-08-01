@@ -22,7 +22,7 @@ module.exports = {
         alt: 'pnohs Logo',
         src: 'img/logo.svg',
       },
-      links: [
+      items: [
         {to: 'docs/pnohs/overview', label: 'pnohs', position: 'left'},
         {to: 'docs/pnohs-alpha/overview', label: 'pnohs-alpha', position: 'left'},
         {to: 'docs/pnohs-alpha-ref/' , label: 'pnohs-alpha Reference',  position: 'left'},
