@@ -1,6 +1,6 @@
 ---
-id: building
-title: 编译构建
+id: build-and-install
+title: 编译构建与安装
 ---
 
 使用CMake工具进行编译构建，如果你不熟悉CMake，可以参考CMake的相关文档。
@@ -18,7 +18,7 @@ cmake --build ./build -j 4  # build using 4 processors
 
 以上步骤正常结束后，你将会在`pnohs-alpha/build/bin` 目录找到编译完成的可执行程序 `pnohs-alpha`。
 
-如果你需要将可执行程序及库安装到特定的目录（如`~/pnohs-alpha-install`目录），可以在构建时加上`-DCMAKE_INSTALL_PREFIX`参数，例如:
+如果你需要将可执行程序及库安装到特定的目录（如`~/pnohs-alpha-install`目录），可以在构建时加上`CMAKE_INSTALL_PREFIX`参数，例如:
 ```bash
 cd pnohs-alpha
 cmake -B./build -H./ -DCMAKE_INSTALL_PREFIX=~/pnohs-alpha-install

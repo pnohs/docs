@@ -13,7 +13,7 @@ title: 在项目中使用 pnohs
 - [kiwi](https://git.hpcer.dev/genshen/kiwi) 位于`/path/of/src/pnohs/vendor/pkg/kiwi`下；
 
 这些安装位置对于使用 Makefile 或者 CMake 构建工具来说是有用的。  
-这里提供了在项目中使用该库的三种方式：通过 Makefile 使用该库，通过 CMake 使用该库以及通过pkg包管理器+CMake使用该库，分别如下。
+这里提供了在项目中使用该库的三种方式：通过 Makefile 使用该库，通过 CMake 使用该库以及通过pkg包管理器+CMake使用该库，分别如下。  
 
 ## Makefile
 ```makefile
@@ -38,10 +38,10 @@ project(myProject)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories(/path/of/src/pnohs/vendor/include)
-find_package(pnohs PATHS /path/vendor/pnohs)
 find_package(googletest PATHS /path/of/src/pnohs/vendor/pkg/googletest)
 find_package(fmt PATHS /path/of/src/pnohs/vendor/pkg/fmt)
 find_package(kiwi PATHS /path/of/src/pnohs/vendor/pkg/kiwi)
+find_package(pnohs PATHS /path/vendor/pnohs)
 
 add_executable(myPro main.cpp)
 target_link_libraries(myPro pnohs)
@@ -53,6 +53,7 @@ cmake --build ./build
 ```
 
 ## pkg 包管理器
+考虑到较多的依赖包，我们更推荐使用最为简单的**pkg包管理器+CMake**的方式来在你的项目中引入 pnohs 库。  
 使用 pkg 包管理器则不需知道各个包的安装位置，先编写依赖包的文件 `pkg.yaml`：
 ```yml
 packages:
@@ -61,7 +62,7 @@ packages:
       path: https://git.hpcer.dev/HPCer/hydrology/pnohs.git
       tag: v0.3.0
 ```
-则 pkg.yaml 同一目录下执行 `pkg fetch & pkg install` 命令以拉取依赖包的源码并进行构建。
+在 pkg.yaml 同一目录下执行 `pkg fetch & pkg install` 命令以拉取依赖包的源码并进行构建。
 在 CMakeLists.txt 文件中添加并链接依赖包：
 ```cmake {5,7}
 project(pnohs-alpha)

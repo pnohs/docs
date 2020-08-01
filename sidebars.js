@@ -17,7 +17,7 @@ module.exports = {
     '编译构建': [
       'pnohs/prepare-env',
       'pnohs/get-source-code',
-      'pnohs/build-and-install',
+      'pnohs/building_pnohs',
       'pnohs/lib-usage'
     ],
     'Developer Guide': [
@@ -41,7 +41,7 @@ module.exports = {
     '构建 pnohs-alpha': [
       'pnohs-alpha/prepare-env',
       'pnohs-alpha/get-source-code',
-      'pnohs-alpha/building',
+      'pnohs-alpha/build-and-install',
     ],
     '运行程序':[
       'pnohs-alpha/run-overview',
